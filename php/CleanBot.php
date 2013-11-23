@@ -1,9 +1,15 @@
 <?php
 /**
  * @link https://www.hackerrank.com/challenges/botclean
+ * @todo Implement with a Greedy Heuristic
+ * @author Travis Boudreaux  <tjboudreaux@gmail.com>
  */
 
 /** My Code **/
+
+/**
+ * A simple bot that can travel a 2 dimensional grid and clean dirty tiles.
+ */
 class Bot 
 {
 	private $positionX;
@@ -47,6 +53,9 @@ class Bot
 	
 }
 
+/**
+ * A simple, flexible implementation of a board that is traversable in 4 directions by a bot.
+ */
 class Board
 {
 	const STATE_DIRTY = 'd';
@@ -139,6 +148,10 @@ class Board
 	}
 }
 
+/**
+ * Contains all the necessary logic to complete a turn. It has access to the bot, the board, and 
+ * the heuristic used to determine where the bot will go.
+ */
 class Turn
 {
 	const OUTPUT_UP    = 'UP';
@@ -184,11 +197,21 @@ class Turn
 	}
 }
 
+/**
+ * A simple interface for building and testing interchangeable heuristics.
+ */
 interface BotHeuristic
 {
 	public function move(Bot $bot, Board $board, Turn $turn);
 }
 
+/**
+ * A basic heuristic I used for the first submission which determines the next move based on the 
+ * nearest dirty tile. On the provided example grid, this completed in 16 moves (minus cleans).
+ * The grid is completable in 11 turns (minus cleans), so I want to implement a greedy heuristic
+ * that searchs for the most optimal route.
+ * 
+ */
 class BasicHeuristic implements BotHeuristic
 {
 
@@ -229,7 +252,7 @@ class BasicHeuristic implements BotHeuristic
 	}
 }
 
-/* Head ends here */
+/* Interface Code to connect to the HackerRank implementation */
 function next_move(&$y, &$x, &$board) {
 
 	$print = false;
